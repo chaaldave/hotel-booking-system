@@ -1,4 +1,7 @@
 import Navbar from "../../components/Navbar";
+import Footer from "../../components/footer";
+import { Link } from "react-router-dom";
+
 
 const FACILITIES = [
   // Updated image paths to match your uploaded filenames

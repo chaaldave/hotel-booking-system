@@ -15,7 +15,7 @@ import ManageBookings from "./pages/admin/ManageBookings";
 
 //EXTRA
 import About from "./pages/extra/About";
-import Help from "./pages/extra/Help";
+
 
 export default function App() {
   return (
@@ -28,7 +28,6 @@ export default function App() {
       <Route path="/history" element={<BookingHistory />} />
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/about" element={<About />} />
-      <Route path="/help" element={<Help />} />
       <Route path="/manage-rooms" element={<ManageRooms />} />
       <Route path="/manage-bookings" element={<ManageBookings />} />
     </Routes>
