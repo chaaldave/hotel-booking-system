@@ -4,6 +4,7 @@ import Footer from "../../components/Footer";
 import RoomCard from "../../components/RoomCard";
 import { getRooms } from "../../services/roomService";
 
+
 export default function Rooms() {
   const [rooms, setRooms] = useState([]);
   const [message, setMessage] = useState("");
