@@ -165,7 +165,7 @@ export default function BookingForm() {
             <div className="modal-actions">
               <Link to="/login" className="primary-btn">Log In Now</Link>
               <button className="secondary-btn" onClick={() => setShowLoginModal(false)}>
-                Cancel
+                Stay as Guest
               </button>
             </div>
           </div>

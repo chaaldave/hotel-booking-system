@@ -1,5 +1,4 @@
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/Footer";
 
 const FACILITIES = [
   // Updated image paths to match your uploaded filenames
