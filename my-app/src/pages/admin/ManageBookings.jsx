@@ -1,40 +1,44 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
+import {
+  getAllBookings,
+  updateBookingStatus,
+} from "../../services/bookingService";
 
 export default function ManageBookings() {
-  const [bookings, setBookings] = useState([
-    {
-      id: 1,
-      user: "Maria Santos",
-      room: "Deluxe Room",
-      checkIn: "2026-04-10",
-      checkOut: "2026-04-12",
-      status: "Confirmed",
-    },
-    {
-      id: 2,
-      user: "Juan Dela Cruz",
-      room: "Single Room",
-      checkIn: "2026-05-01",
-      checkOut: "2026-05-03",
-      status: "Pending",
-    },
-    {
-      id: 3,
-      user: "Angela Reyes",
-      room: "Family Suite",
-      checkIn: "2026-06-15",
-      checkOut: "2026-06-18",
-      status: "Completed",
-    },
-  ]);
+  const [bookings, setBookings] = useState([]);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
 
-  function handleStatusChange(id, newStatus) {
-    const updatedBookings = bookings.map((booking) =>
-      booking.id === id ? { ...booking, status: newStatus } : booking
-    );
+  useEffect(() => {
+    fetchBookings();
+  }, []);
 
-    setBookings(updatedBookings);
+  async function fetchBookings() {
+    setLoading(true);
+
+    const { data, error } = await getAllBookings();
+
+    if (error) {
+      setMessage("Failed to load bookings.");
+    } else {
+      setBookings(data || []);
+      setMessage("");
+    }
+
+    setLoading(false);
+  }
+
+  async function handleStatusChange(id, newStatus) {
+    const { error } = await updateBookingStatus(id, newStatus);
+
+    if (error) {
+      setMessage("Failed to update booking status.");
+      return;
+    }
+
+    setMessage("Booking status updated successfully.");
+    fetchBookings();
   }
 
   return (
@@ -42,15 +46,25 @@ export default function ManageBookings() {
       <Navbar />
 
       <div className="page-container">
-        <h1>Bookings Management</h1>
-        <p>View and manage all reservations made by users.</p>
+        <div className="admin-hero transylvania-hero">
+          <h1>Manage Monster Reservations</h1>
+          <p>
+            Review every creature’s reservation, assigned room,
+            and booking status across Hotel Transylvania.
+          </p>
+        </div>
+
+        {message && <p className="message-text">{message}</p>}
 
         <div className="table-container">
           <table>
             <thead>
               <tr>
-                <th>User</th>
+                <th>Guest Name</th>
                 <th>Room</th>
+                <th>Category</th>
+                <th>Occupancy</th>
+                <th>Rate</th>
                 <th>Check-in</th>
                 <th>Check-out</th>
                 <th>Status</th>
@@ -59,28 +73,41 @@ export default function ManageBookings() {
             </thead>
 
             <tbody>
-              {bookings.map((booking) => (
-                <tr key={booking.id}>
-                  <td>{booking.user}</td>
-                  <td>{booking.room}</td>
-                  <td>{booking.checkIn}</td>
-                  <td>{booking.checkOut}</td>
-                  <td>{booking.status}</td>
-                  <td>
-                    <select
-                      value={booking.status}
-                      onChange={(event) =>
-                        handleStatusChange(booking.id, event.target.value)
-                      }
-                    >
-                      <option value="Pending">Pending</option>
-                      <option value="Confirmed">Confirmed</option>
-                      <option value="Completed">Completed</option>
-                      <option value="Cancelled">Cancelled</option>
-                    </select>
-                  </td>
+              {loading ? (
+                <tr>
+                  <td colSpan="9">Loading bookings...</td>
                 </tr>
-              ))}
+              ) : bookings.length === 0 ? (
+                <tr>
+                  <td colSpan="9">No bookings found.</td>
+                </tr>
+              ) : (
+                bookings.map((booking) => (
+                  <tr key={booking.id}>
+                    <td>{booking.profiles?.full_name || "Unknown Guest"}</td>
+                    <td>{booking.rooms?.name || "Unknown Room"}</td>
+                    <td>{booking.rooms?.category || "—"}</td>
+                    <td>{booking.rooms?.occupancy || "—"}</td>
+                    <td>{booking.rooms?.price ? `₲${booking.rooms.price}` : "—"}</td>
+                    <td>{booking.check_in_date}</td>
+                    <td>{booking.check_out_date}</td>
+                    <td>{booking.status}</td>
+                    <td>
+                      <select
+                        value={booking.status}
+                        onChange={(event) =>
+                          handleStatusChange(booking.id, event.target.value)
+                        }
+                      >
+                        <option value="Pending">Pending</option>
+                        <option value="Confirmed">Confirmed</option>
+                        <option value="Completed">Completed</option>
+                        <option value="Cancelled">Cancelled</option>
+                      </select>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>

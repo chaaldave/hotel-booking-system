@@ -1,119 +1,137 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
+import {
+  getRooms,
+  addRoom,
+  updateRoom,
+  deleteRoom,
+} from "../../services/roomService";
 
 export default function ManageRooms() {
-  const [rooms, setRooms] = useState([
-    {
-      id: 1,
-      name: "Deluxe Room",
-      description: "A cozy room with queen-sized bed and city view.",
-      price: 3500,
-      capacity: 2,
-      available: true,
-    },
-    {
-      id: 2,
-      name: "Family Suite",
-      description: "A spacious suite ideal for families and group stays.",
-      price: 5500,
-      capacity: 4,
-      available: true,
-    },
-    {
-      id: 3,
-      name: "Single Room",
-      description: "A simple and affordable room for solo travelers.",
-      price: 2200,
-      capacity: 1,
-      available: false,
-    },
-  ]);
+  const [rooms, setRooms] = useState([]);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(true);
+  const [editId, setEditId] = useState(null);
 
   const [formData, setFormData] = useState({
     name: "",
+    category: "",
     description: "",
+    occupancy: "",
+    bed_type: "",
+    size: "",
     price: "",
-    capacity: "",
+    amenities: "",
+    tags: "",
     available: "true",
   });
 
-  const [message, setMessage] = useState("");
-  const [editId, setEditId] = useState(null);
+  useEffect(() => {
+    fetchRooms();
+  }, []);
+
+  async function fetchRooms() {
+    setLoading(true);
+
+    const { data, error } = await getRooms();
+
+    if (error) {
+      setMessage("Failed to load rooms.");
+    } else {
+      setRooms(data || []);
+      setMessage("");
+    }
+
+    setLoading(false);
+  }
 
   function handleChange(event) {
     const { name, value } = event.target;
 
-    setFormData({
-      ...formData,
+    setFormData((prev) => ({
+      ...prev,
       [name]: value,
-    });
+    }));
   }
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     if (
       !formData.name ||
+      !formData.category ||
       !formData.description ||
+      !formData.occupancy ||
+      !formData.bed_type ||
+      !formData.size ||
       !formData.price ||
-      !formData.capacity
+      !formData.amenities
     ) {
-      setMessage("Please fill in all room fields.");
+      setMessage("Please complete all required room details.");
       return;
     }
 
-    if (editId) {
-      const updatedRooms = rooms.map((room) =>
-        room.id === editId
-          ? {
-              ...room,
-              name: formData.name,
-              description: formData.description,
-              price: Number(formData.price),
-              capacity: Number(formData.capacity),
-              available: formData.available === "true",
-            }
-          : room
-      );
+    const roomData = {
+      name: formData.name,
+      category: formData.category,
+      description: formData.description,
+      occupancy: formData.occupancy,
+      bed_type: formData.bed_type,
+      size: formData.size,
+      price: Number(formData.price),
+      amenities: formData.amenities,
+      tags: formData.tags,
+      available: formData.available === "true",
+    };
 
-      setRooms(updatedRooms);
+    if (editId) {
+      const { error } = await updateRoom(editId, roomData);
+
+      if (error) {
+        setMessage("Failed to update room.");
+        return;
+      }
+
       setMessage("Room updated successfully.");
       setEditId(null);
     } else {
-      const newRoom = {
-        id: Date.now(),
-        name: formData.name,
-        description: formData.description,
-        price: Number(formData.price),
-        capacity: Number(formData.capacity),
-        available: formData.available === "true",
-      };
+      const { error } = await addRoom(roomData);
 
-      setRooms([...rooms, newRoom]);
+      if (error) {
+        setMessage("Failed to add room.");
+        return;
+      }
+
       setMessage("Room added successfully.");
     }
 
     setFormData({
       name: "",
+      category: "",
       description: "",
+      occupancy: "",
+      bed_type: "",
+      size: "",
       price: "",
-      capacity: "",
+      amenities: "",
+      tags: "",
       available: "true",
     });
-  }
 
-  function handleDelete(id) {
-    const updatedRooms = rooms.filter((room) => room.id !== id);
-    setRooms(updatedRooms);
-    setMessage("Room deleted successfully.");
+    fetchRooms();
   }
 
   function handleEdit(room) {
     setFormData({
-      name: room.name,
-      description: room.description,
-      price: room.price,
-      capacity: room.capacity,
+      name: room.name || "",
+      category: room.category || "",
+      description: room.description || "",
+      occupancy: room.occupancy || "",
+      bed_type: room.bed_type || "",
+      size: room.size || "",
+      price: room.price || "",
+      amenities: room.amenities || "",
+      tags: room.tags || "",
       available: room.available ? "true" : "false",
     });
 
@@ -121,17 +139,61 @@ export default function ManageRooms() {
     setMessage("Editing selected room.");
   }
 
+  async function handleDelete(id) {
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this room?"
+    );
+
+    if (!confirmDelete) {
+      return;
+    }
+
+    const { error } = await deleteRoom(id);
+
+    if (error) {
+      setMessage("Failed to delete room.");
+      return;
+    }
+
+    setMessage("Room deleted successfully.");
+    fetchRooms();
+  }
+
+  function handleCancelEdit() {
+    setEditId(null);
+
+    setFormData({
+      name: "",
+      category: "",
+      description: "",
+      occupancy: "",
+      bed_type: "",
+      size: "",
+      price: "",
+      amenities: "",
+      tags: "",
+      available: "true",
+    });
+
+    setMessage("Edit cancelled.");
+  }
+
   return (
     <div>
       <Navbar />
 
       <div className="page-container">
-        <h1>Room Management</h1>
-        <p>Add, edit, delete, and view all hotel rooms.</p>
+        <div className="admin-hero transylvania-hero">
+          <h1>Manage Hotel Transylvania Rooms</h1>
+          <p>
+            Update themed suites, monster capacity, room facilities,
+            and nightly rates.
+          </p>
+        </div>
 
-        <div className="form-page">
-          <form className="form-card" onSubmit={handleSubmit}>
-            <h2>{editId ? "Edit Room" : "Add New Room"}</h2>
+        <div className="admin-form-wrapper">
+          <form className="admin-form-card spooky-form" onSubmit={handleSubmit}>
+            <h2>{editId ? "Edit Monster Room" : "Add New Monster Room"}</h2>
 
             <input
               type="text"
@@ -143,25 +205,63 @@ export default function ManageRooms() {
 
             <input
               type="text"
+              name="category"
+              placeholder="Category"
+              value={formData.category}
+              onChange={handleChange}
+            />
+
+            <textarea
               name="description"
               placeholder="Room description"
               value={formData.description}
+              onChange={handleChange}
+            ></textarea>
+
+            <input
+              type="text"
+              name="occupancy"
+              placeholder="Occupancy"
+              value={formData.occupancy}
+              onChange={handleChange}
+            />
+
+            <input
+              type="text"
+              name="bed_type"
+              placeholder="Bed type"
+              value={formData.bed_type}
+              onChange={handleChange}
+            />
+
+            <input
+              type="text"
+              name="size"
+              placeholder="Room size"
+              value={formData.size}
               onChange={handleChange}
             />
 
             <input
               type="number"
               name="price"
-              placeholder="Room price"
+              placeholder="Price per night"
               value={formData.price}
               onChange={handleChange}
             />
 
+            <textarea
+              name="amenities"
+              placeholder="Amenities (separate with semicolons)"
+              value={formData.amenities}
+              onChange={handleChange}
+            ></textarea>
+
             <input
-              type="number"
-              name="capacity"
-              placeholder="Room capacity"
-              value={formData.capacity}
+              type="text"
+              name="tags"
+              placeholder="Tags"
+              value={formData.tags}
               onChange={handleChange}
             />
 
@@ -174,9 +274,21 @@ export default function ManageRooms() {
               <option value="false">Not Available</option>
             </select>
 
-            <button type="submit" className="primary-btn">
-              {editId ? "Update Room" : "Add Room"}
-            </button>
+            <div className="button-group">
+              <button type="submit" className="primary-btn">
+                {editId ? "Update Room" : "Add Room"}
+              </button>
+
+              {editId && (
+                <button
+                  type="button"
+                  className="secondary-btn"
+                  onClick={handleCancelEdit}
+                >
+                  Cancel
+                </button>
+              )}
+            </div>
 
             {message && <p className="message-text">{message}</p>}
           </form>
@@ -186,39 +298,53 @@ export default function ManageRooms() {
           <table>
             <thead>
               <tr>
-                <th>Room Name</th>
-                <th>Description</th>
+                <th>Room</th>
+                <th>Category</th>
+                <th>Occupancy</th>
+                <th>Bed Type</th>
+                <th>Size</th>
                 <th>Price</th>
-                <th>Capacity</th>
                 <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
 
             <tbody>
-              {rooms.map((room) => (
-                <tr key={room.id}>
-                  <td>{room.name}</td>
-                  <td>{room.description}</td>
-                  <td>₱{room.price}</td>
-                  <td>{room.capacity}</td>
-                  <td>{room.available ? "Available" : "Not Available"}</td>
-                  <td>
-                    <button
-                      className="edit-btn"
-                      onClick={() => handleEdit(room)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="delete-btn"
-                      onClick={() => handleDelete(room.id)}
-                    >
-                      Delete
-                    </button>
-                  </td>
+              {loading ? (
+                <tr>
+                  <td colSpan="8">Loading rooms...</td>
                 </tr>
-              ))}
+              ) : rooms.length === 0 ? (
+                <tr>
+                  <td colSpan="8">No rooms found.</td>
+                </tr>
+              ) : (
+                rooms.map((room) => (
+                  <tr key={room.id}>
+                    <td>{room.name}</td>
+                    <td>{room.category}</td>
+                    <td>{room.occupancy}</td>
+                    <td>{room.bed_type}</td>
+                    <td>{room.size}</td>
+                    <td>₲{room.price}</td>
+                    <td>{room.available ? "Available" : "Not Available"}</td>
+                    <td>
+                      <button
+                        className="edit-btn"
+                        onClick={() => handleEdit(room)}
+                      >
+                        Edit
+                      </button>
+                      <button
+                        className="delete-btn"
+                        onClick={() => handleDelete(room.id)}
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                ))
+              )}
             </tbody>
           </table>
         </div>
