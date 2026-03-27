@@ -16,15 +16,12 @@ import ManageBookings from "./pages/admin/ManageBookings";
 export default function App() {
   return (
     <Routes>
-      {/* USER ROUTES */}
       <Route path="/" element={<Home />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/rooms" element={<Rooms />} />
       <Route path="/booking" element={<BookingForm />} />
       <Route path="/history" element={<BookingHistory />} />
-
-      {/* ADMIN ROUTES */}
       <Route path="/admin" element={<AdminDashboard />} />
       <Route path="/manage-rooms" element={<ManageRooms />} />
       <Route path="/manage-bookings" element={<ManageBookings />} />
