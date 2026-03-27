@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import {
-  getAllBookings,
-  updateBookingStatus,
-} from "../../services/bookingService";
+import Footer from "../../components/Footer";
+import { getAllBookings, updateBookingStatus } from "../../services/bookingService";
 
 export default function ManageBookings() {
   const [bookings, setBookings] = useState([]);
+  const [searchTerm, setSearchTerm] = useState(""); // NEW: Search state
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(true);
 
@@ -16,88 +15,94 @@ export default function ManageBookings() {
 
   async function fetchBookings() {
     setLoading(true);
-
     const { data, error } = await getAllBookings();
-
     if (error) {
       setMessage("Failed to load bookings.");
     } else {
       setBookings(data || []);
-      setMessage("");
     }
-
     setLoading(false);
   }
 
   async function handleStatusChange(id, newStatus) {
     const { error } = await updateBookingStatus(id, newStatus);
-
     if (error) {
-      setMessage("Failed to update booking status.");
+      setMessage("Failed to update status.");
       return;
     }
-
-    setMessage("Booking status updated successfully.");
+    setMessage("Status updated successfully.");
     fetchBookings();
   }
 
+  // NEW: Filtering logic (Search by Name, Room, or Date)
+  const filteredBookings = bookings.filter((booking) => {
+    const search = searchTerm.toLowerCase();
+    return (
+      booking.profiles?.full_name?.toLowerCase().includes(search) ||
+      booking.rooms?.name?.toLowerCase().includes(search) ||
+      booking.check_in_date?.includes(search) ||
+      booking.status?.toLowerCase().includes(search)
+    );
+  });
+
   return (
-    <div>
+    <div className="admin-page-wrapper">
       <Navbar />
 
-      <div className="page-container">
-        <div className="admin-hero transylvania-hero">
-          <h1>Manage Monster Reservations</h1>
-          <p>
-            Review every creature’s reservation, assigned room,
-            and booking status across Hotel Transylvania.
-          </p>
+      <div className="rooms-page">
+        <div className="rooms-hero">
+          <p className="home-kicker">Admin Control</p>
+          <h1 className="pro-title">Manage Reservations</h1>
+          
+          {/* NEW: Search Box UI */}
+          <div className="search-container">
+            <input
+              type="text"
+              className="admin-search-input"
+              placeholder="Search by Guest, Room, Date, or Status..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+          </div>
         </div>
 
-        {message && <p className="message-text">{message}</p>}
+        {message && <p className="message-text centered">{message}</p>}
 
-        <div className="table-container">
-          <table>
+        <div className="history-table-container">
+          <table className="spooky-table">
             <thead>
               <tr>
-                <th>Guest Name</th>
+                <th>Guest</th>
                 <th>Room</th>
-                <th>Category</th>
-                <th>Occupancy</th>
-                <th>Rate</th>
                 <th>Check-in</th>
                 <th>Check-out</th>
                 <th>Status</th>
-                <th>Update Status</th>
+                <th>Action</th>
               </tr>
             </thead>
 
             <tbody>
               {loading ? (
-                <tr>
-                  <td colSpan="9">Loading bookings...</td>
-                </tr>
-              ) : bookings.length === 0 ? (
-                <tr>
-                  <td colSpan="9">No bookings found.</td>
-                </tr>
+                <tr><td colSpan="6" className="loading-text">Summoning records...</td></tr>
+              ) : filteredBookings.length === 0 ? (
+                <tr><td colSpan="6" className="loading-text">No matches found in the crypt.</td></tr>
               ) : (
-                bookings.map((booking) => (
+                filteredBookings.map((booking) => (
                   <tr key={booking.id}>
-                    <td>{booking.profiles?.full_name || "Unknown Guest"}</td>
+                    <td className="gold-text">{booking.profiles?.full_name || "Unknown Guest"}</td>
                     <td>{booking.rooms?.name || "Unknown Room"}</td>
-                    <td>{booking.rooms?.category || "—"}</td>
-                    <td>{booking.rooms?.occupancy || "—"}</td>
-                    <td>{booking.rooms?.price ? `₲${booking.rooms.price}` : "—"}</td>
                     <td>{booking.check_in_date}</td>
                     <td>{booking.check_out_date}</td>
-                    <td>{booking.status}</td>
+                    <td>
+                      <span className={`status-badge ${booking.status.toLowerCase()}`}>
+                        {booking.status}
+                      </span>
+                    </td>
                     <td>
                       <select
+                        className="admin-status-select"
                         value={booking.status}
-                        onChange={(event) =>
-                          handleStatusChange(booking.id, event.target.value)
-                        }
+                        onChange={(e) => handleStatusChange(booking.id, e.target.value)}
                       >
                         <option value="Pending">Pending</option>
                         <option value="Confirmed">Confirmed</option>
@@ -112,6 +117,7 @@ export default function ManageBookings() {
           </table>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

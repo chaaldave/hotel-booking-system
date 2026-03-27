@@ -3,21 +3,24 @@ import { Link } from "react-router-dom";
 
 export default function AdminDashboard() {
   return (
-    <div>
+    <div className="admin-page-wrapper">
       <Navbar />
 
-      <div className="page-container">
-        <div className="admin-hero transylvania-hero">
-          <h1>Hotel Transylvania Admin Dashboard</h1>
-          <p>
+      {/* Main container for admin content */}
+      <div className="admin-page">
+        <div className="admin-hero">
+          <p className="home-kicker">Management Portal</p>
+          <h1 className="pro-title">Admin Dashboard</h1>
+          <p className="home-description">
             Manage monster accommodations, update themed room details,
             and monitor all haunting reservations from one place.
           </p>
         </div>
 
+        {/* This grid needs clear spacing to stop overlapping */}
         <div className="admin-grid">
           <div className="admin-card spooky-card">
-            <h2>Manage Monster Rooms</h2>
+            <h3>Manage Monster Rooms</h3>
             <p>
               Add, edit, delete, and review all signature Hotel Transylvania
               rooms, from The Dracula Suite to the Phantom Ballroom.
@@ -28,7 +31,7 @@ export default function AdminDashboard() {
           </div>
 
           <div className="admin-card spooky-card">
-            <h2>Manage Reservations</h2>
+            <h3>Manage Reservations</h3>
             <p>
               View all guest bookings, inspect room assignments, and update
               booking status for every creature staying in the hotel.

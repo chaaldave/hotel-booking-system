@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-
+import "./App.css";
 // USER PAGES
 import Home from "./pages/user/Home";
 import Login from "./pages/user/Login";
@@ -13,6 +13,10 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import ManageRooms from "./pages/admin/ManageRooms";
 import ManageBookings from "./pages/admin/ManageBookings";
 
+//EXTRA
+import About from "./pages/extra/About";
+import Help from "./pages/extra/Help";
+
 export default function App() {
   return (
     <Routes>
@@ -23,6 +27,8 @@ export default function App() {
       <Route path="/booking" element={<BookingForm />} />
       <Route path="/history" element={<BookingHistory />} />
       <Route path="/admin" element={<AdminDashboard />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/help" element={<Help />} />
       <Route path="/manage-rooms" element={<ManageRooms />} />
       <Route path="/manage-bookings" element={<ManageBookings />} />
     </Routes>
