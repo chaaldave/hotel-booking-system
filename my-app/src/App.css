@@ -3,7 +3,7 @@
 :root {
   --bg-dark: #0a0a0b;
   --bg-card: #141416;
-  --accent-gold: #b39a6a; /* This is your primary gold */
+  --accent-gold: #b39a6a;
   --text-main: #f4f4f4;
   --text-muted: #888888;
   --font-serif: 'Playfair Display', serif;
@@ -61,7 +61,7 @@ body {
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 25px; /* Adds consistent space between all items */
+  gap: 25px;
 }
 
 .nav-links a {
@@ -78,8 +78,10 @@ body {
   color: var(--text-main);
 }
 
-/* HOME */
-.transylvania-home, .page-container, .rooms-page {
+/* --- HOME --- */
+.transylvania-home,
+.page-container,
+.rooms-page {
   padding-top: 100px;
 }
 
@@ -91,9 +93,9 @@ body {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: linear-gradient(rgba(0,0,0,0.5), var(--bg-dark)), 
-              url('/Hotel Front View.png') center/cover no-repeat;
-  padding: 0 10%; 
+  background: linear-gradient(rgba(0, 0, 0, 0.5), var(--bg-dark)),
+    url('/Hotel Front View.png') center/cover no-repeat;
+  padding: 0 10%;
 }
 
 .home-kicker {
@@ -121,7 +123,7 @@ body {
   margin: 0 auto 40px;
 }
 
-/* BUTTONS */
+/* --- BUTTONS --- */
 .primary-btn {
   background: transparent;
   color: var(--text-main);
@@ -133,8 +135,11 @@ body {
   transition: all 0.5s ease;
 }
 
-a, .primary-btn, .secondary-btn, .room-cta {
-  text-decoration: none !important; 
+a,
+.primary-btn,
+.secondary-btn,
+.room-cta {
+  text-decoration: none !important;
 }
 
 .primary-btn:hover {
@@ -153,7 +158,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-left: 15px;
 }
 
-/* GRID */
+/* --- GRID --- */
 .home-highlights {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -191,7 +196,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
 
 /* --- ROOMS PAGE LAYOUT --- */
 .rooms-list-stack {
-  width: 100vw; 
+  width: 100vw;
   margin: 0;
   padding: 0;
   display: flex;
@@ -200,29 +205,27 @@ a, .primary-btn, .secondary-btn, .room-cta {
 
 .spooky-room-card {
   display: flex;
-  width: 100%; 
-  min-height: 60vh; 
+  width: 100%;
+  min-height: 60vh;
   margin: 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Changed from purple */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
-/* Text section background fix */
-/* This is where your screenshot went wrong - fix the text container */
 .room-content-wrapper {
   flex: 1;
-  background: #0a0a0b; /* Match your site background */
+  background: #0a0a0b;
   padding: 80px 6%;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center; /* CENTER ALL CONTENT */
+  align-items: center;
   text-align: center;
 }
 
 .rooms-page {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
   width: 100%;
   background: var(--bg-dark);
   padding-top: 100px;
@@ -242,20 +245,12 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin: 10px 0 20px;
 }
 
-.rooms-list-stack {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-/* Force the Card to be a 50/50 Split */
 .spooky-room-card {
   display: flex;
   width: 100%;
-  min-height: 70vh; /* Better height for luxury feel */
+  min-height: 70vh;
   border-bottom: 1px solid #222;
 }
-
 
 .room-image-container {
   flex: 1;
@@ -264,40 +259,38 @@ a, .primary-btn, .secondary-btn, .room-cta {
   min-height: 100%;
 }
 
-/* Adjusted for Gold Theme */
 .room-title-large {
   font-family: var(--font-serif);
-  font-size: 48px;        /* Slightly larger for elegance */
-  color: var(--text-main); 
+  font-size: 48px;
+  color: var(--text-main);
   margin: 0 0 20px 0;
-  font-weight: 300;       /* Lighter weight looks more professional */
+  font-weight: 300;
 }
 
 .room-category-label {
-  color: var(--accent-gold); 
+  color: var(--accent-gold);
   text-transform: uppercase;
-  letter-spacing: 4px;    /* Increased spacing */
+  letter-spacing: 4px;
   font-size: 11px;
   margin-bottom: 15px;
-  display: block;         /* Ensures it sits on its own line */
+  display: block;
 }
 
 .room-description-text {
   color: var(--text-muted);
   line-height: 1.8;
   font-size: 15px;
-  margin: 0 auto 40px auto; /* Centers the block itself */
-  max-width: 480px;         /* Limits width to prevent "clipping" look */
+  margin: 0 auto 40px auto;
+  max-width: 480px;
 }
 
-/* Specs Grid - Fixed to stay in the center */
 .room-spec-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 15px;
-  width: 100%;             
-  max-width: 600px;        
-  margin: 0 auto 50px auto; /* Centered with margin-auto */
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto 50px auto;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   padding-top: 30px;
 }
@@ -305,7 +298,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
 .spec-item {
   display: flex;
   flex-direction: column;
-  align-items: center; 
+  align-items: center;
 }
 
 .spec-item .spec-label {
@@ -313,7 +306,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   color: var(--accent-gold);
   text-transform: uppercase;
   letter-spacing: 2px;
-  margin-bottom: 12px; 
+  margin-bottom: 12px;
 }
 
 .spec-item .spec-value {
@@ -324,20 +317,19 @@ a, .primary-btn, .secondary-btn, .room-cta {
   line-height: 1.4;
 }
 
-/* --- UPDATED ROOM CTA BUTTON --- */
 .room-cta {
   display: inline-block;
   padding: 18px 45px;
   background: transparent;
   color: var(--accent-gold);
   text-decoration: none;
-  border: 1px solid var(--accent-gold); 
+  border: 1px solid var(--accent-gold);
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 3px;
   transition: all 0.4s ease;
   margin-top: 10px;
-  align-self: center;      /* Forces the button to stay in the middle */
+  align-self: center;
   min-width: 260px;
 }
 
@@ -347,24 +339,22 @@ a, .primary-btn, .secondary-btn, .room-cta {
   transform: translateY(-3px);
 }
 
-/* Booking Form */
-/* Centers the entire page content */
+/* --- BOOKING FORM --- */
 .booking-page {
   min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-top: 100px; /* Space for Navbar */
+  padding-top: 100px;
   background-color: var(--bg-dark);
 }
 
-/* The actual form card */
 .spooky-form-card {
   background: var(--bg-card);
   padding: 50px;
   width: 100%;
-  max-width: 500px; /* Prevents it from being too wide */
-  border: 1px solid rgba(179, 154, 106, 0.2); /* Subtle gold border */
+  max-width: 500px;
+  border: 1px solid rgba(179, 154, 106, 0.2);
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -383,7 +373,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-bottom: 30px;
 }
 
-/* Styling the inputs and labels */
 .spooky-form-card label {
   text-align: left;
   display: block;
@@ -394,7 +383,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin: 20px 0 8px 0;
 }
 
-.spooky-form-card input, 
+.spooky-form-card input,
 .spooky-form-card select {
   width: 100%;
   padding: 12px;
@@ -406,12 +395,11 @@ a, .primary-btn, .secondary-btn, .room-cta {
   transition: border 0.3s ease;
 }
 
-.spooky-form-card input:focus, 
+.spooky-form-card input:focus,
 .spooky-form-card select:focus {
   border-color: var(--accent-gold);
 }
 
-/* Fix the button inside the form */
 .spooky-form-card .primary-btn {
   margin-top: 40px;
   cursor: pointer;
@@ -422,10 +410,9 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-top: 20px;
   font-size: 14px;
   color: var(--accent-gold);
-  
 }
 
-/*POPUP LOGIN*/
+/* --- POPUP LOGIN --- */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -484,7 +471,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   cursor: pointer;
 }
 
-/*LOGIN PAGE*/
+/* --- LOGIN PAGE --- */
 .transylvania-auth-page {
   min-height: 100vh;
   display: flex;
@@ -499,7 +486,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   padding: 60px 50px;
   width: 100%;
   max-width: 480px;
-  border: 1px solid rgba(179, 154, 106, 0.2); /* Subtle gold border */
+  border: 1px solid rgba(179, 154, 106, 0.2);
   text-align: center;
 }
 
@@ -572,18 +559,17 @@ a, .primary-btn, .secondary-btn, .room-cta {
 }
 
 .switch-text a {
-  color: #9b4dff; /* Matching your link color */
+  color: #9b4dff;
   text-decoration: none;
   margin-left: 5px;
 }
 
-/*booking history*/
-/* Container for the table to ensure it centers like the Hero section */
+/* --- BOOKING HISTORY --- */
 .history-table-container {
   width: 90%;
   max-width: 1100px;
   margin: 0 auto 100px auto;
-  overflow-x: auto; /* Allows scrolling on mobile */
+  overflow-x: auto;
   background: #111;
   border: 1px solid rgba(179, 154, 106, 0.1);
 }
@@ -620,7 +606,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   font-weight: 600;
 }
 
-/* Status Badge Styling */
 .status-badge {
   padding: 5px 12px;
   font-size: 10px;
@@ -646,26 +631,23 @@ a, .primary-btn, .secondary-btn, .room-cta {
   color: var(--accent-gold);
 }
 
-/*admin dashboard*/
-/* Ensure the page starts below the navbar and centers content */
+/* --- ADMIN DASHBOARD --- */
 .admin-page {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 120px; /* Space for Navbar */
+  padding-top: 120px;
   background: #0a0a0b;
 }
 
-/* Fixes the Hero text seen in your screenshot */
 .admin-hero {
   text-align: center;
   max-width: 800px;
-  margin-bottom: 60px; /* Force space between text and cards */
+  margin-bottom: 60px;
   padding: 0 20px;
 }
 
-/* The Grid Layout to separate the two cards */
 .admin-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
@@ -675,7 +657,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-bottom: 100px;
 }
 
-/* Styling the cards to look like the rest of your site */
 .admin-card {
   background: #111;
   padding: 40px;
@@ -705,15 +686,13 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-bottom: 30px;
 }
 
-/* About.css */
-
+/* --- ABOUT --- */
 .about-page {
-  background-color: #050505; /* Deep black for monster comfort */
+  background-color: #050505;
   color: #f4f4f4;
   overflow-x: hidden;
 }
 
-/* Hero Section */
 .about-hero {
   position: relative;
   height: 70vh;
@@ -725,7 +704,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  filter: brightness(0.4) contrast(1.1); /* Darker for dramatic effect */
+  filter: brightness(0.4) contrast(1.1);
 }
 
 .about-hero-content {
@@ -737,7 +716,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
 }
 
 .about-hero-content h1 {
-  font-family: 'Playfair Display', serif; /* Or your preferred serif */
+  font-family: 'Playfair Display', serif;
   font-size: 5rem;
   letter-spacing: 10px;
   text-transform: uppercase;
@@ -745,7 +724,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin: 0;
 }
 
-/* Alternating Sections */
 .about-sections {
   padding: 100px 0;
   max-width: 1200px;
@@ -769,7 +747,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   max-width: 500px;
   height: 400px;
   object-fit: cover;
-  border: 1px solid rgba(197, 160, 89, 0.3); /* Thin gold border */
+  border: 1px solid rgba(197, 160, 89, 0.3);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
 }
 
@@ -791,7 +769,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-bottom: 20px;
 }
 
-/* Facilities Strip */
 .facilities-strip {
   background-color: #0a0a0a;
   padding: 100px 10%;
@@ -842,7 +819,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   text-transform: uppercase;
 }
 
-/* Gloom-Bloom Animation for Garden */
 .glowing-garden-img {
   animation: gloom-glow 4s ease-in-out infinite;
 }
@@ -852,18 +828,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   50% { box-shadow: 0 0 30px rgba(0, 255, 127, 0.4); }
 }
 
-/* Responsive */
-@media (max-width: 850px) {
-  .about-section, .about-section.reverse {
-    flex-direction: column;
-    text-align: center;
-  }
-  .about-hero-content h1 {
-    font-size: 3rem;
-  }
-}
-
-/*booking management table*/
+/* --- BOOKING MANAGEMENT --- */
 .search-container {
   margin-top: 30px;
   display: flex;
@@ -879,7 +844,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   color: #fff;
   font-family: inherit;
   font-size: 14px;
-  border-radius: 0; /* Keeps it sharp and gothic */
+  border-radius: 0;
   outline: none;
   transition: all 0.3s ease;
 }
@@ -895,6 +860,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   letter-spacing: 1px;
   font-size: 11px;
 }
+
 .admin-status-select {
   background: #000;
   color: var(--accent-gold);
@@ -920,7 +886,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   letter-spacing: 1px;
 }
 
-/* Ensure these badges match your History page */
 .status-badge.completed {
   color: #88ccff;
   border: 1px solid #88ccff;
@@ -931,8 +896,7 @@ a, .primary-btn, .secondary-btn, .room-cta {
   border: 1px solid #ff4444;
 }
 
-/*manage rooms table*/
-/* Container for the Admin Form */
+/* --- MANAGE ROOMS --- */
 .admin-form-container {
   width: 90%;
   max-width: 900px;
@@ -940,11 +904,10 @@ a, .primary-btn, .secondary-btn, .room-cta {
 }
 
 .admin-edit-form {
-  max-width: 100% !important; /* Override the login-size card */
+  max-width: 100% !important;
   padding: 40px !important;
 }
 
-/* 2-column grid for the form fields */
 .form-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -952,7 +915,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   margin-bottom: 15px;
 }
 
-/* Admin Table Actions */
 .table-actions {
   display: flex;
   gap: 15px;
@@ -969,30 +931,26 @@ a, .primary-btn, .secondary-btn, .room-cta {
 
 .action-link.edit { color: var(--accent-gold); }
 .action-link.delete { color: #ff4444; }
-
 .action-link:hover { text-decoration: underline; }
 
-/*LOGOUT*/
+/* --- LOGOUT --- */
 .logout-btn {
   background: none;
   border: none;
   cursor: pointer;
-  
-  /* Match your other nav links exactly */
-  color: #888; /* or your specific link color */
-  font-family: inherit; 
-  font-size: 13px; /* Adjust to match 'HOME' size */
+  color: #888;
+  font-family: inherit;
+  font-size: 13px;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;
-  
   padding: 0;
   margin: 0;
   transition: color 0.3s ease;
 }
 
 .logout-btn:hover {
-  color: #fff; /* or your gold accent color */
+  color: #fff;
 }
 
 /* --- FOOTER --- */
@@ -1061,7 +1019,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   color: #444;
 }
 
-/* Footer Link Button Reset */
 .footer-link-btn {
   background: none;
   border: none;
@@ -1077,14 +1034,14 @@ a, .primary-btn, .secondary-btn, .room-cta {
   color: #fff;
 }
 
-/* Modal Overlay */
+/* --- FAQ MODAL --- */
 .faq-modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.9); /* Very dark backdrop */
+  background: rgba(0, 0, 0, 0.9);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -1092,7 +1049,6 @@ a, .primary-btn, .secondary-btn, .room-cta {
   backdrop-filter: blur(5px);
 }
 
-/* Modal Box */
 .faq-modal-content {
   background: #111;
   border: 1px solid var(--accent-gold);
@@ -1152,6 +1108,8 @@ a, .primary-btn, .secondary-btn, .room-cta {
   color: var(--text-muted);
   line-height: 1.6;
 }
+
+/* --- CONTACT DIRECTORY --- */
 .contact-directory h2 {
   font-family: 'Playfair Display', serif;
   color: var(--accent-gold);
@@ -1200,17 +1158,17 @@ a, .primary-btn, .secondary-btn, .room-cta {
   text-align: center;
 }
 
-/* --- responsive --- */
+/* --- RESPONSIVE --- */
 @media (max-width: 900px) {
-  .home-highlights{
+  .home-highlights {
     grid-template-columns: 1fr;
   }
   .highlight-card {
     border-right: none;
     border-bottom: var(--border-ghost);
   }
-
-  .spooky-room-card, .spooky-room-card:nth-child(even) {
+  .spooky-room-card,
+  .spooky-room-card:nth-child(even) {
     flex-direction: column;
   }
   .room-image-container {
@@ -1221,8 +1179,15 @@ a, .primary-btn, .secondary-btn, .room-cta {
     padding: 40px 5%;
     width: 100%;
   }
-
-    .footer-content {
+  .footer-content {
     grid-template-columns: 1fr 1fr;
+  }
+  .about-section,
+  .about-section.reverse {
+    flex-direction: column;
+    text-align: center;
+  }
+  .about-hero-content h1 {
+    font-size: 3rem;
   }
 }
