@@ -15,7 +15,7 @@ import ManageBookings from "./pages/admin/ManageBookings";
 
 //EXTRA
 import About from "./pages/extra/About";
-
+//
 export default function App() {
   return (
     <Routes>
