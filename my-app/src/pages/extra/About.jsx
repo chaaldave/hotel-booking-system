@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const FACILITIES = [
 
-  { img: "/Hotel Pool.png", name: "The Vat Pool", desc: "Acid waters shaped like a colossal bat in flight." },
+  { img: "/Hotel Pool.png", name: "The Vat Pool", desc: "Acid waters shaped like a coffin." },
   { img: "/Hotel Garden.png", name: "Moonlit Gardens", desc: "Rare gloom-blooms and carnivorous snapdragons." },
   { img: "/Hotel Gym.png", name: "Crypt-Fit Gym", desc: "Heavy-duty iron weights in a repurposed stone crypt." },
   { img: "/Hotel Lobby.png", name: "Grand Lobby", desc: "Polished obsidian floors and flickering chandeliers." },
