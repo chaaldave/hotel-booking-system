@@ -27,7 +27,7 @@ export async function updateRoom(id, updatedRoom) {
     .update(updatedRoom)
     .eq("id", id)
     .select();
-
+//
   if (error) console.error("Supabase Error Details:", error.message, error.details);
 
   return { data, error };
