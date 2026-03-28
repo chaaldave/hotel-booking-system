@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/footer"; // Added Footer for consistency
+import Footer from "../../components/Footer"; // Added Footer for consistency
 import { getCurrentUser } from "../../services/authService";
 import { getUserBookings } from "../../services/bookingService";
 

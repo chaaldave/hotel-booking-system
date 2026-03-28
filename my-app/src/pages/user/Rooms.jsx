@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../components/Navbar";
-import Footer from "../../components/footer";
+import Footer from "../../components/Footer";
 import RoomCard from "../../components/RoomCard";
 import { getRooms } from "../../services/roomService";
 
