@@ -19,15 +19,15 @@ export async function addRoom(room) {
 }
 
 export async function updateRoom(id, updatedRoom) {
-  console.log("Updating ID:", id);
-  console.log("Data being sent:", updatedRoom); // Check for extra or weirdly formatted fields here
+  // This takes 'id' out and puts everything else into 'dataToUpdate'
+  const { id: _, ...dataToUpdate } = updatedRoom;
 
   const { data, error } = await supabase
     .from("rooms")
-    .update(updatedRoom)
+    .update(dataToUpdate) // Use the cleaned object here
     .eq("id", id)
     .select();
-//
+
   if (error) console.error("Supabase Error Details:", error.message, error.details);
 
   return { data, error };
