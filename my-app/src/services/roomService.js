@@ -34,6 +34,23 @@ export async function updateRoom(id, updatedRoom) {
 }
 
 export async function deleteRoom(id) {
+  // 1. Check if there are any bookings for this room first
+  const { data: bookings, error: checkError } = await supabase
+    .from("bookings")
+    .select("id")
+    .eq("room_id", id)
+    .limit(1); // We only need to find one to know we can't delete
+
+  if (checkError) return { error: checkError };
+
+  // 2. If a booking exists, stop and return a custom error
+  if (bookings.length > 0) {
+    return { 
+      error: { message: "Cannot delete room: It has existing bookings." } 
+    };
+  }
+
+  // 3. If no bookings, proceed with deletion
   const { error } = await supabase
     .from("rooms")
     .delete()
