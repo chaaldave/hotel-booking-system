@@ -6,7 +6,6 @@ export default function AdminDashboard() {
     <div className="admin-page-wrapper">
       <Navbar />
 
-      {/* Main container for admin content */}
       <div className="admin-page">
         <div className="admin-hero">
           <p className="home-kicker">Management Portal</p>
@@ -17,7 +16,6 @@ export default function AdminDashboard() {
           </p>
         </div>
 
-        {/* This grid needs clear spacing to stop overlapping */}
         <div className="admin-grid">
           <div className="admin-card spooky-card">
             <h3>Manage Monster Rooms</h3>

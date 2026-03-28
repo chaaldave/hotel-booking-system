@@ -11,7 +11,6 @@ export default function Navbar() {
   useEffect(() => {
     checkUser();
     
-    // Listen for auth changes to update Navbar instantly
     const { data: authListener } = supabase.auth.onAuthStateChange(async (event, session) => {
       if (session?.user) {
         setUser(session.user);

@@ -10,7 +10,6 @@ const FAQS = [
 ];
 
 export default function Footer() {
-  // Use a string state to track which modal is open: null, 'help', or 'contact'
   const [activeModal, setActiveModal] = useState(null);
   const [openIndex, setOpenIndex] = useState(null);
   const [search, setSearch] = useState("");
@@ -79,7 +78,6 @@ export default function Footer() {
           <div className="faq-modal-content" onClick={(e) => e.stopPropagation()}>
             <button className="close-modal" onClick={closeModal}>&times;</button>
             
-            {/* Modal Content: HELP */}
             {activeModal === 'help' && (
               <>
                 <h2>Crypt Knowledge Base</h2>
@@ -110,7 +108,6 @@ export default function Footer() {
               </>
             )}
 
-            {/* Modal Content: CONTACT */}
             {activeModal === 'contact' && (
               <div className="contact-directory">
                 <h2>Scream-Service Directory</h2>

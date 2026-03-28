@@ -62,7 +62,6 @@ export default function Register() {
 
       <div className="form-page transylvania-auth-page">
         <div className="form-card spooky-form-card">
-          {/* Conditional Rendering: Show message if success, otherwise show form */}
           {isSuccess ? (
             <div className="success-confirmation" style={{ textAlign: 'center' }}>
               <h2 style={{ color: 'var(--accent-gold)' }}>Welcome to the Shadows</h2>
