@@ -4,9 +4,8 @@ import { Link } from "react-router-dom";
 
 
 const FACILITIES = [
-  // Updated image paths to match your uploaded filenames
 
-  { img: "/Hotel Pool.png", name: "The Bat Pool", desc: "Geothermal waters shaped like a colossal bat in flight." },
+  { img: "/Hotel Pool.png", name: "The Vat Pool", desc: "Acid waters shaped like a colossal bat in flight." },
   { img: "/Hotel Garden.png", name: "Moonlit Gardens", desc: "Rare gloom-blooms and carnivorous snapdragons." },
   { img: "/Hotel Gym.png", name: "Crypt-Fit Gym", desc: "Heavy-duty iron weights in a repurposed stone crypt." },
   { img: "/Hotel Lobby.png", name: "Grand Lobby", desc: "Polished obsidian floors and flickering chandeliers." },
@@ -17,9 +16,7 @@ export default function About() {
     <div className="about-page">
       <Navbar />
 
-      {/* Hero */}
       <div className="about-hero">
-        {/* Updated to your specific Hotel Front View asset */}
         <img src="/Hotel Front View.png" alt="Hotel Transylvania exterior" />
       </div>
 
@@ -66,21 +63,20 @@ export default function About() {
           </div>
         </div>
 
-        {/* Pool Section - Added for better coverage */}
+        {/* Pool Section */}
         <div className="about-section">
-          <img src="/Hotel Pool.png" alt="Bat Pool" />
+          <img src="/Hotel Pool.png" alt="Vat Pool" />
           <div className="about-text">
-            <h2>The Bat Pool</h2>
+            <h2>The Vat Pool</h2>
             <p>
-              Custom-shaped to resemble a colossal bat in flight, the pool is filled with 
-              naturally heated geothermal water. Private, coffin-shaped cabanas 
+              Custom-built to hold vats of acid, the pool is filled with 
+              naturally heated acid water. Private, coffin-shaped cabanas 
               line the deck for those who prefer the shade.
             </p>
           </div>
         </div>
       </div>
 
-      {/* Facilities Grid */}
       <div className="facilities-strip" style={{ paddingBottom: "100px" }}>
         <h2 style={{ textAlign: "center", marginBottom: "40px" }}>Hotel Facilities</h2>
         <div className="facilities-grid">
